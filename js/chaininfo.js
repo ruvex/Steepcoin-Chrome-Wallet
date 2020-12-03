@@ -10,17 +10,12 @@ window.onload = function (){
 
     // Set history page to open to explorer according to mainnet or testnet & set ticker according to mainnet or testnet
     if (apiget == "mainnet" || apiget == null) {
-        api = "https://api.sugarchain.org"
-        prefix = "SUGAR"
-        href = "https://sugarchain.org/explorer/#/address/" + getaddress
+        api = "https://explorer.steepcoin.money"
+        prefix = "STEEP"
+        href = "https://explorer.steepcoin.money/explorer/#/address/" + getaddresss
         $("#history").attr("href", href)
     }
-    else if (apiget == "testnet"){
-        api = "https://api-testnet.sugarchain.org"
-        prefix = "TUGAR"
-        href = "https://sugar.wtf/#/" + getaddress
-        $("#history").attr("href", href)
-    }
+    
 
     // Define function to make api request according to certain call
     function apiCall(call) {
@@ -187,7 +182,7 @@ var lang = {
         'net-hash': "Хешрейт:",
         'circ-supply': "Предложение:",
         'logoutreminder': {
-            'part1': "Помните в",
+            'part1': "Сохранить",
             'logoutlink': "Выйти",
             'part2': "перед выходом",
         },
