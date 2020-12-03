@@ -21,15 +21,11 @@ window.onload = function() {
 
     // Set history page to open to explorer & sets placeholder to testnet or mainnet prefix
     if (apiget == "mainnet" || apiget == null) {
-        api = "https://api.sugarchain.org"
-        inputPlaceholder.attr("placeholder", "sugar1q...")
-        href = "https://sugarchain.org/explorer/#/address/" + address
+        api = "https://explorer.steepcoin.money"
+        inputPlaceholder.attr("placeholder", "s...")
+        href = "https://explorer.steepcoin.money/address/" + address
     }
-    else if (apiget == "testnet"){
-        api = "https://api-testnet.sugarchain.org"
-        inputPlaceholder.attr("placeholder", "tugar1q...")
-        href = "https://sugar.wtf/#/address/" + address
-    }
+    
     $("#history").attr("href", href)
 
     getSendAPI()
@@ -38,39 +34,26 @@ window.onload = function() {
 var errororsuccess
 function getSendAPI() {
     // Set Network config according to Endpoint selection
-    if (localStorage.getItem("api") == "https://api.sugarchain.org" || localStorage.getItem("api") == null){
+    if (localStorage.getItem("api") == "https://explorer.steepcoin.money" || localStorage.getItem("api") == null){
         netconfig = {					
            'network': {
-                'messagePrefix': '\x19Sugarchain Signed Message:\n',
+                'messagePrefix': '\SteepCoin Signed Message:\n',
                 'bip32': {
                     'public': 0x0488b21e,
                     'private': 0x0488ade4
                 },
                'bech32': 'sugar',
-               'pubKeyHash': 0x3F,
-               'scriptHash': 0x7D,
+               'pubKeyHash': 0x7D,
+               'scriptHash': 0x3F,
                 'wif': 0x80}
         }
     }
       
-    else if (localStorage.getItem("api") == "https://api-testnet.sugarchain.org") {
-        netconfig = {					
-           'network': {
-                'messagePrefix': '\x19Sugarchain Signed Message:\n',
-                'bip32': {
-                    'public': 0x0488b21e,
-                    'private': 0x0488ade4
-                },
-               'bech32': 'tugar',
-               'pubKeyHash': 0x42,
-               'scriptHash': 0x80,
-                'wif': 0xEF}
-        }
-    }
+   
 }
 
 $("#sendTx").click(function () {
-    var feeinput = document.getElementById("feeSugar")
+    var feeinput = document.getElementById("feeSTEEP")
     console.log(feeinput.value)
     var fee = undefined
     var feeShow = undefined
@@ -83,13 +66,13 @@ $("#sendTx").click(function () {
         feeShow = convertAmountFormat(fee)
     }
     // Don't put fee in convertion of amount format
-    var amount = convertAmountFormat(parseFloat($("#amountSUGAR").val()), true) + fee
+    var amount = convertAmountFormat(parseFloat($("#amountSTEEP").val()), true) + fee
     var amountShow = convertAmountFormat(amount)
     var receiver = $("#sendInput").val()
 
     var scripts = []
 
-    ask = confirm("Confirm Transaction. You are about to send " + $("#amountSUGAR").val() + " SUGAR to " + receiver + ". The fee is " + feeShow/*(amountShow - Number($("#amountSUGAR").val()))*/ + " SUGAR\nTotal Cost: " + amountShow + " SUGAR")
+    ask = confirm("Confirm Transaction. You are about to send " + $("#amountSTEEP").val() + " STEEP to " + receiver + ". The fee is " + feeShow/*(amountShow - Number($("#amountSTEEP").val()))*/ + " STEEP\nTotal Cost: " + amountShow + " STEEP")
     if (ask == true){
         var showErrororSuccess = $("#showErrororSuccess")
         showErrororSuccess.text("Sending Transaction...")
@@ -221,9 +204,9 @@ function scriptType(script) {
 
 // Reset the values after user sends
 function resetForm() {
-    $("#amountSUGAR").val('')
+    $("#amountSTEEP").val('')
     $("#sendInput").val('')
-    $("#feeSugar").val('')
+    $("#feeSTEEP").val('')
 }
 
 // Conversion of standars integer to satoshis
@@ -242,7 +225,7 @@ var lang = {
     'en': {
         // Page text
         'send-to': "Send To: ",
-        'amount-sugar': "Amount: ",
+        'amount-steep': "Amount: ",
         'sendTx': "Send Transaction",
         'showErrororSuccess': {
             'success': "Success! Transaction ID: ",
@@ -302,7 +285,7 @@ var lang = {
     'kr': {
         // Page text
         'send-to': "보내다 에게: ",
-        'amount-sugar': "양: ",
+        'amount-steep': "양: ",
         'sendTx': "보내다 트랜잭션",
         'showErrororSuccess': {
             'success': "성공! 트랜잭션 ID: ",
@@ -331,7 +314,7 @@ var lang = {
     'id': {
         // Page text
         'send-to': "Kirim Untuk: ",
-        'amount-sugar': "Jumlahnya: ",
+        'amount-steep': "Jumlahnya: ",
         'sendTx': "Kirim Transaksi",
         'showErrororSuccess': {
             'success': "Keberhasilan! Transaksi ID: ",
@@ -360,7 +343,7 @@ var lang = {
     'es': {
         // Page text
         'send-to': "Enviar a: ",
-        'amount-sugar': "Cantidad: ",
+        'amount-steep': "Cantidad: ",
         'sendTx': "Enviar Transacción",
         'showErrororSuccess': {
             'success': "Éxito! Transacción ID: ",
@@ -389,18 +372,18 @@ var lang = {
     'ru': {
         // Page text
         'send-to': "Отправить к: ",
-        'amount-sugar': "Сумма: ",
+        'amount-steep': "Сумма: ",
         'sendTx': "Отправить",
         'showErrororSuccess': {
             'success': "Транзакция успешно отправлена: ",
             'error': {
                 'broadcast': "Ошибка передачи: ",
-                'funds': "Ошибка: недостаточный баланс",
+                'funds': "Ошибка: недостаточно средств на балансе",
                 'cancel': "Отменить",
             },
         },
         'logoutreminder': {
-            'part1': "Помните в",
+            'part1': "Сохранить",
             'logoutlink': "Выйти",
             'part2': "перед выходом",
         },
@@ -418,7 +401,7 @@ var lang = {
     'zh': {
         // Page text
         'send-to': "发送至: ",
-        'amount-sugar': "数量: ",
+        'amount-steep': "数量: ",
         'sendTx': "发送交易",
         'showErrororSuccess': {
             'success': "成功! 交易 ID: ",
@@ -447,7 +430,7 @@ var lang = {
     'ja': {
         // Page text
         'send-to': "に 送る: ",
-        'amount-sugar': "量: ",
+        'amount-steep': "量: ",
         'sendTx': "送る トランザクション",
         'showErrororSuccess': {
             'success': "成功! トランザクション ID: ",
