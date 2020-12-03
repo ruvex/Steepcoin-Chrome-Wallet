@@ -24,7 +24,7 @@ function getImportAPI() {
     if (localStorage.getItem("api") == "https://explorer.steepcoin.money" || localStorage.getItem("api") == null){
         netconfig = {					
            'network': {
-                'messagePrefix': '\Steepcoin Signed Message:\n',
+                'messagePrefix': '\SteepCoin Signed Message:\n',
                 'bip32': {
                     'public': 0x0488b21e,
                     'private': 0x0488ade4
