@@ -16,11 +16,9 @@ window.onload = function() {
 
     // Sets History Tab to open to explorer
     if (apiget == "mainnet" || apiget == null) {
-        href = "https://sugarchain.org/explorer/#/address/" + getaddress
+        href = "https://explorer.steepcoin.money/address/" + getaddress
     }
-    else if (apiget == "testnet") {
-        href = "https://sugar.wtf/#/address/" + getaddress
-    }
+   
     $("#history").attr("href", href)
 
     getMainAPI()
@@ -29,35 +27,22 @@ window.onload = function() {
 
 function getMainAPI() {
     // Set Network config according to Endpoint selection
-    if (localStorage.getItem("api") == "https://api.sugarchain.org" || localStorage.getItem("api") == null){
+    if (localStorage.getItem("api") == "https://explorer.steepcoin.money" || localStorage.getItem("api") == null){
         netconfig = {					
            'network': {
-                'messagePrefix': '\x19Sugarchain Signed Message:\n',
+                'messagePrefix': '\SteepCoin Signed Message:\n',
                 'bip32': {
                     'public': 0x0488b21e,
                     'private': 0x0488ade4
                 },
-               'bech32': 'sugar',
-               'pubKeyHash': 0x3F,
-               'scriptHash': 0x7D,
+               'bech32': 'steep',
+               'pubKeyHash': 0x7D,
+               'scriptHash': 0x3F,
                 'wif': 0x80}
         }
     }
     
-    else if (localStorage.getItem("api") == "https://api-testnet.sugarchain.org") {
-        netconfig = {					
-            'network': {
-                'messagePrefix': '\x19Sugarchain Signed Message:\n',
-                'bip32': {
-                    'public': 0x0488b21e,
-                    'private': 0x0488ade4
-                },
-                'bech32': 'tugar',
-                'pubKeyHash': 0x42,
-                'scriptHash': 0x80,
-                'wif': 0xEF}
-        }
-    }
+    
 }
 
 $("#generateAddress").click(function() {
@@ -65,23 +50,13 @@ $("#generateAddress").click(function() {
     var key = bitcoin.ECPair.makeRandom({'network': netconfig['network']})
     var wif = key.toWIF()
 
-    if (addresstype == "3") {
-        address = bitcoin.payments.p2pkh({'pubkey': key.publicKey, 'network': netconfig['network']}).address
-        $("#addressDisplay").text(address)
-        localStorage.setItem("address", address)
-    }
-    else if (addresstype == "2") {
+    if (addresstype == "s") {
         redeem = bitcoin.payments.p2wpkh({'pubkey': key.publicKey, 'network': netconfig['network']})
         address = bitcoin.payments.p2sh({'redeem': redeem, 'network': netconfig['network']}).address
         $("#addressDisplay").text(address)
         localStorage.setItem("address", address)
     }
-    else if (addresstype == "1"){
-        address = bitcoin.payments.p2wpkh({'pubkey': key.publicKey, 'network': netconfig['network']}).address
-        $("#addressDisplay").text(address)
-        localStorage.setItem("address", address)
-    }
-
+    
     // Sets WIF key in local storage for sending
     localStorage.setItem("wifKey", wif)
     // WIF key only showed once for security purposes
@@ -95,11 +70,9 @@ $("#generateAddress").click(function() {
 
     // Sets History Tab to open to explorer
     if (apiget == "mainnet" || apiget == null) {
-        href = "https://sugarchain.org/explorer/#/address/" + getaddress
+        href = "https://explorer.steepcoin.money/address/" + getaddress
     }
-    else if (apiget == "testnet") {
-        href = "https://sugar.wtf/#/address/" + getaddress
-    }
+    
     $("#history").attr("href", href)
 })
 
@@ -235,7 +208,7 @@ var lang = {
         'importantmsg': "Важно: Убедитесь, что вы храните ваш ключ WIF в безопасном месте, прежде чем делать что-либо еще",
         'alertmsg': "Адрес сгенерировано успешно",
         'logoutreminder': {
-            'part1': "Помните в",
+            'part1': "Сохранить",
             'logoutlink': "Выйти",
             'part2': "перед выходом",
         },
