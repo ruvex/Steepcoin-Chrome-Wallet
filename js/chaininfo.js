@@ -12,7 +12,7 @@ window.onload = function (){
     if (apiget == "mainnet" || apiget == null) {
         api = "https://explorer.steepcoin.money"
         prefix = "STEEP"
-        href = "https://explorer.steepcoin.money/explorer/#/address/" + getaddresss
+        href = "https://explorer.steepcoin.money/address/" + getaddresss
         $("#history").attr("href", href)
     }
     
