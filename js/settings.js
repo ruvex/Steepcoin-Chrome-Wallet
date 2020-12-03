@@ -14,11 +14,9 @@ window.onload = function() {
 
     // Sets History Tab to open to explorer according to testnet or mainnet
     if (apiget == "mainnet" || apiget == null) {
-        href = "https://sugarchain.org/explorer/#/address/" + getaddress
+        href = "https://explorer.steepcoin.money/address/" + getaddress
     }
-    else if (apiget == "testnet"){
-        href = "https://sugar.wtf/#/address/" + getaddress
-    }
+    
     $("#history").attr("href", href)
 
     if (apiget == null) {
@@ -37,8 +35,8 @@ selectedEndpoint.onchange = function () {
     document.location.reload()
 }
 
-var mainnet = "https://api.sugarchain.org"
-var testnet = "https://api-testnet.sugarchain.org"
+var mainnet = "https://explorer.steepcoin.money"
+
 // Set the api in local storage
 function setAPI() {
     var apiSet = localStorage.getItem("apiSet")
@@ -46,9 +44,7 @@ function setAPI() {
     if (apiSet == "mainnet") {
         localStorage.setItem("api", mainnet)
     }
-    else if (apiSet == "testnet") {
-        localStorage.setItem("api", testnet)
-    }
+    
 }
 
 // Clear Local Storage (WIF, Address, reset overlay.html and reset endpoint)
